@@ -1,18 +1,37 @@
 import java.util.*;
 class AddressBook{
     public static void main(String[] args) {
+
         Map<String, List<Object>> addressBook = new HashMap();
-        addPerson(addressBook);
+        System.out.println("Enter the number of contacts you want to add");
+        Scanner sc= new Scanner(System.in);
+        //Creating object for AddressBook Class
+        int numberOFContacts= sc.nextInt();
+        for(int i = 0; i < numberOFContacts; i++) {
+            int contactNumber = i + 1;
+            System.out.println("\n Enter details for Contact"+contactNumber);
+            addPerson(addressBook);
+        }
+
 
     }
     public static void addPerson(Map<String, List<Object>> addressBook) {
-        String firstName="John";
-        String lastName="Wick";
-        String address="Universal Studios";
-        String city="New York";
-        String state="Philadelphia";
-        Integer zip=12345;
-        Integer phone=987654321;
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter first name: ");
+        String firstName = scan.next();
+        System.out.println("Enter last name: ");
+        String lastName = scan.next();
+        System.out.println("Enter address: ");
+        String address = scan.next();
+        System.out.println("Enter city: ");
+        String city = scan.next();
+        System.out.println("Enter state: ");
+        String state = scan.next();
+        System.out.println("Enter zip: ");
+        int zip = scan.nextInt();
+        System.out.println("Enter phone number: ");
+        int phone = scan.nextInt();
 
         List<Object> ContactPerson = new ArrayList<>();
         ContactPerson.add(firstName);
@@ -26,18 +45,7 @@ class AddressBook{
         String name = firstName + " " + lastName;
         addressBook.put(name, ContactPerson);
         System.out.println(addressBook);
-        System.out.println("----------\n Enter option\n1 - EDIT CONTACT\n2 - DELETE CONTACT");
-        Scanner sc= new Scanner(System.in);
-        int check=sc.nextInt();
-        if(check==1){
-            editContactDetail(ContactPerson);
-        }
-        else if(check==2){
-            deleteContact(addressBook);
-        }
-        else{
-            System.out.println("invalid option");
-        }
+
     }
 
     public static void editContactDetail(List<Object> contactPerson) {
