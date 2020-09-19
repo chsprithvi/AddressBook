@@ -26,7 +26,18 @@ class AddressBook{
         String name = firstName + " " + lastName;
         addressBook.put(name, ContactPerson);
         System.out.println(addressBook);
-        editContactDetail(ContactPerson);
+        System.out.println("----------\n Enter option\n1 - EDIT CONTACT\n2 - DELETE CONTACT");
+        Scanner sc= new Scanner(System.in);
+        int check=sc.nextInt();
+        if(check==1){
+            editContactDetail(ContactPerson);
+        }
+        else if(check==2){
+            deleteContact(addressBook);
+        }
+        else{
+            System.out.println("invalid option");
+        }
     }
 
     public static void editContactDetail(List<Object> contactPerson) {
@@ -66,5 +77,9 @@ class AddressBook{
         }
         //return contactPerson;
         System.out.println(contactPerson);
+    }
+    public static void deleteContact(Map<String, List<Object>> addressBookDel) {
+        addressBookDel.clear();
+        System.out.println(addressBookDel);
     }
 }
