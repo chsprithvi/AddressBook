@@ -13,6 +13,11 @@ class AddressBook{
             addPerson(addressBook);
         }
         System.out.println(addressBook);
+        //creating a new TreeMap for sorting HashMap
+        TreeMap<String, List<Object>> sorted = new TreeMap<>();
+        // Copy all data from hashMap into TreeMap
+        sorted.putAll(addressBook);
+        System.out.println(sorted);
 
     }
     public static void addPerson(Map<String, List<Object>> addressBook) {
