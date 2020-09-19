@@ -12,7 +12,7 @@ class AddressBook{
             System.out.println("\n Enter details for Contact"+contactNumber);
             addPerson(addressBook);
         }
-
+        System.out.println(addressBook);
 
     }
     public static void addPerson(Map<String, List<Object>> addressBook) {
@@ -22,6 +22,12 @@ class AddressBook{
         String firstName = scan.next();
         System.out.println("Enter last name: ");
         String lastName = scan.next();
+        String name = firstName + " " + lastName;
+        if(addressBook.containsKey(name)) {
+            System.out.println("Sorry, contact already exits\n Please, Enter details properly");
+            addPerson(addressBook);
+            return;
+        }
         System.out.println("Enter address: ");
         String address = scan.next();
         System.out.println("Enter city: ");
@@ -42,9 +48,8 @@ class AddressBook{
         ContactPerson.add(zip);
         ContactPerson.add(phone);
 
-        String name = firstName + " " + lastName;
         addressBook.put(name, ContactPerson);
-        System.out.println(addressBook);
+
 
     }
 
