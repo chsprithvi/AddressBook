@@ -1,6 +1,5 @@
 import java.util.*;
 
-import javax.swing.plaf.synth.SynthStyle;
 class AddressBook{
     public static void main(String[] args) {
         AddressBook AddBookObj = new AddressBook();
@@ -8,8 +7,8 @@ class AddressBook{
         Map<Integer, List<Object>> addressBookZip = new HashMap();
         Map<String, List<Object>> addressBookState = new HashMap();
         Map<String, List<Object>> addressBookCity = new HashMap();
-        Map<String, String> PersonCity = new HashMap();
-        Map<String, String> PersonState = new HashMap();
+        Map<String, List<String>> PersonCity = new HashMap();
+        Map<String, List<String>> PersonState = new HashMap();
         System.out.println("Enter the number of contacts you want to add");
         Scanner sc= new Scanner(System.in);
         //Creating object for AddressBook Class
@@ -21,7 +20,7 @@ class AddressBook{
         }
         System.out.println(addressBook);
         
-        System.out.println("1-Sort entries by Name\n2-Sort entries by City\n3-Sort entries by State\n4-Sort entries by Zip\n5-View Person by city\n6-View person by State");
+        System.out.println("1-Sort entries by Name\n2-Sort entries by City\n3-Sort entries by State\n4-Sort entries by Zip\n5-Search Person by city\n6-Search person by State");
         int checkOption=sc.nextInt();
         if(checkOption==1){
             AddBookObj.displayName(addressBook);
@@ -36,10 +35,12 @@ class AddressBook{
             AddBookObj.displayZip(addressBookZip);
         }
         else if(checkOption==5){
-            System.out.println(PersonCity);
+            String checkCity=sc.next();
+            System.out.println(PersonCity.get(checkCity));
         }
         else if(checkOption==6){
-            System.out.println(PersonState);
+            String checkState=sc.next();
+            System.out.println(PersonState.get(checkState));
         }
         else{
             System.out.println("Invalid option");
@@ -84,7 +85,7 @@ class AddressBook{
 
     }
 
-    public static void addPerson(Map<String, List<Object>> addressBook, Map<Integer, List<Object>> addressBookZip, Map<String, List<Object>> addressBookState, Map<String, List<Object>> addressBookCity,Map<String, String> PersonCity,Map<String, String> PersonState) {
+    public static void addPerson(Map<String, List<Object>> addressBook, Map<Integer, List<Object>> addressBookZip, Map<String, List<Object>> addressBookState, Map<String, List<Object>> addressBookCity, Map<String, List<String>> PersonCity, Map<String, List<String>> PersonState) {
 
 
         Scanner scan = new Scanner(System.in);
@@ -118,8 +119,27 @@ class AddressBook{
         ContactPerson.add(zip);
         ContactPerson.add(phone);
         addressBook.put(name, ContactPerson);
-        PersonCity.put(name, city);
-        PersonState.put(name, state);
+        List<String> cityAppend = new ArrayList<>();
+        List<String> newCityAppend = new ArrayList<>();
+        if(PersonCity.containsKey(city)){
+            cityAppend.add(name);
+            PersonCity.put(city, cityAppend);
+        }
+        else{
+            newCityAppend.add(name);
+            PersonCity.put(city, newCityAppend);
+        }
+        List<String> stateAppend = new ArrayList<>();
+        List<String> newStateAppend = new ArrayList<>();
+        if(PersonCity.containsKey(city)){
+            cityAppend.add(name);
+            PersonState.put(state, stateAppend);
+        }
+        else{
+            newStateAppend.add(name);
+            PersonState.put(state, newStateAppend);
+        }
+
         
         List<Object> ContactPersonCity = new ArrayList<>();
         ContactPersonCity.add(firstName);
