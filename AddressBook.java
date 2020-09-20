@@ -1,8 +1,13 @@
 import java.util.*;
+
+import javax.swing.plaf.synth.SynthStyle;
 class AddressBook{
     public static void main(String[] args) {
-
+        AddressBook AddBookObj = new AddressBook();
         Map<String, List<Object>> addressBook = new HashMap();
+        Map<Integer, List<Object>> addressBookZip = new HashMap();
+        Map<String, List<Object>> addressBookState = new HashMap();
+        Map<String, List<Object>> addressBookCity = new HashMap();
         System.out.println("Enter the number of contacts you want to add");
         Scanner sc= new Scanner(System.in);
         //Creating object for AddressBook Class
@@ -10,8 +15,33 @@ class AddressBook{
         for(int i = 0; i < numberOFContacts; i++) {
             int contactNumber = i + 1;
             System.out.println("\n Enter details for Contact"+contactNumber);
-            addPerson(addressBook);
+            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity);
         }
+        System.out.println(addressBook);
+        
+        System.out.println("1-Sort entries by Name\n2-Sort entries by City\n3-Sort entries by State\n4-Sort entries by Zip\n");
+        int checkOption=sc.nextInt();
+        if(checkOption==1){
+            AddBookObj.displayName(addressBook);
+        }
+        else if(checkOption==2){
+            AddBookObj.displayCity(addressBookCity);
+        }
+        else if(checkOption==3){
+            AddBookObj.displayState(addressBookState);
+        }
+        else if(checkOption==4){
+            AddBookObj.displayZip(addressBookZip);
+        }
+        else{
+            System.out.println("Invalid option");
+        }
+ 
+
+    }
+
+
+    public void displayName(Map<String, List<Object>> addressBook){
         System.out.println(addressBook);
         //creating a new TreeMap for sorting HashMap
         TreeMap<String, List<Object>> sorted = new TreeMap<>();
@@ -20,7 +50,35 @@ class AddressBook{
         System.out.println(sorted);
 
     }
-    public static void addPerson(Map<String, List<Object>> addressBook) {
+    public void displayZip(Map<Integer, List<Object>> addressBookZip){
+        System.out.println(addressBookZip);
+        //creating a new TreeMap for sorting HashMap
+        TreeMap<Integer, List<Object>> sortedZip = new TreeMap<>();
+        // Copy all data from hashMap into TreeMap
+        sortedZip.putAll(addressBookZip);
+        System.out.println(sortedZip);
+
+    }
+    public void displayState(Map<String, List<Object>> addressBookState){
+        System.out.println(addressBookState);
+        //creating a new TreeMap for sorting HashMap
+        TreeMap<String, List<Object>> sortedState = new TreeMap<>();
+        // Copy all data from hashMap into TreeMap
+        sortedState.putAll(addressBookState);
+        System.out.println(sortedState);
+
+    }
+    public void displayCity(Map<String, List<Object>> addressBookCity){
+        System.out.println(addressBookCity);
+        //creating a new TreeMap for sorting HashMap
+        TreeMap<String, List<Object>> sortedCity = new TreeMap<>();
+        // Copy all data from hashMap into TreeMap
+        sortedCity.putAll(addressBookCity);
+        System.out.println(sortedCity);
+
+    }
+
+    public static void addPerson(Map<String, List<Object>> addressBook, Map<Integer, List<Object>> addressBookZip, Map<String, List<Object>> addressBookState, Map<String, List<Object>> addressBookCity) {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter first name: ");
@@ -30,7 +88,7 @@ class AddressBook{
         String name = firstName + " " + lastName;
         if(addressBook.containsKey(name)) {
             System.out.println("Sorry, contact already exits\n Please, Enter details properly");
-            addPerson(addressBook);
+            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity);
             return;
         }
         System.out.println("Enter address: ");
@@ -52,8 +110,40 @@ class AddressBook{
         ContactPerson.add(state);
         ContactPerson.add(zip);
         ContactPerson.add(phone);
-
         addressBook.put(name, ContactPerson);
+        
+        List<Object> ContactPersonCity = new ArrayList<>();
+        ContactPersonCity.add(firstName);
+        ContactPersonCity.add(lastName);
+        ContactPersonCity.add(address);
+        ContactPersonCity.add(city);
+        ContactPersonCity.add(state);
+        ContactPersonCity.add(zip);
+        ContactPersonCity.add(phone);
+        addressBookCity.put(city, ContactPersonCity);
+        
+        
+        List<Object> ContactPersonState = new ArrayList<>();
+        ContactPersonState.add(firstName);
+        ContactPersonState.add(lastName);
+        ContactPersonState.add(address);
+        ContactPersonState.add(city);
+        ContactPersonState.add(state);
+        ContactPersonState.add(zip);
+        ContactPersonState.add(phone);
+        addressBookState.put(state, ContactPersonState);
+
+        
+        List<Object> ContactPersonZip = new ArrayList<>();
+        ContactPersonZip.add(firstName);
+        ContactPersonZip.add(lastName);
+        ContactPersonZip.add(address);
+        ContactPersonZip.add(city);
+        ContactPersonZip.add(state);
+        ContactPersonZip.add(zip);
+        ContactPersonZip.add(phone);
+        addressBookZip.put(zip, ContactPersonZip);
+
 
 
     }
