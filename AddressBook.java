@@ -8,6 +8,8 @@ class AddressBook{
         Map<Integer, List<Object>> addressBookZip = new HashMap();
         Map<String, List<Object>> addressBookState = new HashMap();
         Map<String, List<Object>> addressBookCity = new HashMap();
+        Map<String, String> PersonCity = new HashMap();
+        Map<String, String> PersonState = new HashMap();
         System.out.println("Enter the number of contacts you want to add");
         Scanner sc= new Scanner(System.in);
         //Creating object for AddressBook Class
@@ -15,11 +17,11 @@ class AddressBook{
         for(int i = 0; i < numberOFContacts; i++) {
             int contactNumber = i + 1;
             System.out.println("\n Enter details for Contact"+contactNumber);
-            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity);
+            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity,PersonCity,PersonState);
         }
         System.out.println(addressBook);
         
-        System.out.println("1-Sort entries by Name\n2-Sort entries by City\n3-Sort entries by State\n4-Sort entries by Zip\n");
+        System.out.println("1-Sort entries by Name\n2-Sort entries by City\n3-Sort entries by State\n4-Sort entries by Zip\n5-View Person by city\n6-View person by State");
         int checkOption=sc.nextInt();
         if(checkOption==1){
             AddBookObj.displayName(addressBook);
@@ -33,13 +35,17 @@ class AddressBook{
         else if(checkOption==4){
             AddBookObj.displayZip(addressBookZip);
         }
+        else if(checkOption==5){
+            System.out.println(PersonCity);
+        }
+        else if(checkOption==6){
+            System.out.println(PersonState);
+        }
         else{
             System.out.println("Invalid option");
         }
- 
 
     }
-
 
     public void displayName(Map<String, List<Object>> addressBook){
         System.out.println(addressBook);
@@ -78,7 +84,8 @@ class AddressBook{
 
     }
 
-    public static void addPerson(Map<String, List<Object>> addressBook, Map<Integer, List<Object>> addressBookZip, Map<String, List<Object>> addressBookState, Map<String, List<Object>> addressBookCity) {
+    public static void addPerson(Map<String, List<Object>> addressBook, Map<Integer, List<Object>> addressBookZip, Map<String, List<Object>> addressBookState, Map<String, List<Object>> addressBookCity,Map<String, String> PersonCity,Map<String, String> PersonState) {
+
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter first name: ");
@@ -88,7 +95,7 @@ class AddressBook{
         String name = firstName + " " + lastName;
         if(addressBook.containsKey(name)) {
             System.out.println("Sorry, contact already exits\n Please, Enter details properly");
-            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity);
+            addPerson(addressBook,addressBookZip,addressBookState,addressBookCity,PersonCity,PersonState);
             return;
         }
         System.out.println("Enter address: ");
@@ -111,6 +118,8 @@ class AddressBook{
         ContactPerson.add(zip);
         ContactPerson.add(phone);
         addressBook.put(name, ContactPerson);
+        PersonCity.put(name, city);
+        PersonState.put(name, state);
         
         List<Object> ContactPersonCity = new ArrayList<>();
         ContactPersonCity.add(firstName);
@@ -121,8 +130,7 @@ class AddressBook{
         ContactPersonCity.add(zip);
         ContactPersonCity.add(phone);
         addressBookCity.put(city, ContactPersonCity);
-        
-        
+
         List<Object> ContactPersonState = new ArrayList<>();
         ContactPersonState.add(firstName);
         ContactPersonState.add(lastName);
@@ -133,7 +141,6 @@ class AddressBook{
         ContactPersonState.add(phone);
         addressBookState.put(state, ContactPersonState);
 
-        
         List<Object> ContactPersonZip = new ArrayList<>();
         ContactPersonZip.add(firstName);
         ContactPersonZip.add(lastName);
@@ -143,8 +150,6 @@ class AddressBook{
         ContactPersonZip.add(zip);
         ContactPersonZip.add(phone);
         addressBookZip.put(zip, ContactPersonZip);
-
-
 
     }
 
@@ -185,6 +190,7 @@ class AddressBook{
         }
         //return contactPerson;
         System.out.println(contactPerson);
+
     }
     public static void deleteContact(Map<String, List<Object>> addressBookDel) {
         addressBookDel.clear();
